@@ -67,7 +67,18 @@ export default function CustomJsonGraph() {
     }
   }, [linksGlobal, nodesGlobal]);
 
+useEffect(()=>{
+  const myScene = fgRef.current.scene();
+myScene.add(onRenderFramePre);
 
+},[]);
+
+const onRenderFramePre = (ctx, globalScale) => {
+  const centreCoordinates = {"x":250, "y":250}
+  const backgroundImg = new Image();
+  backgroundImg.src = "https://www.pixelstalk.net/wp-content/uploads/2016/04/Mountain-wallpaper-HD.jpeg";
+  ctx.drawImage(backgroundImg, centreCoordinates.x - backgroundImg.width / 2, centreCoordinates.y - backgroundImg.height / 2);
+};
   const filter_graph = (node) => {
     //data.nodes=nodesGlobal;
     for (let i = 0; i < nodesGlobal.length; i++) {
@@ -380,10 +391,10 @@ export default function CustomJsonGraph() {
                 }}
               >
                 <option>Choose a Workflow</option>
-                <option value="100">RESET</option>
+                {/* <option value="100">RESET</option> */}
                 {nodesGlobal !== null
                   ? nodesGlobal.map((data) =>
-                      data.hasOwnProperty("Workflow") ? (
+                      data.hasOwnProperty("Workflow") && data.Name !== "InsuranceGig"? (
                         <>
                           <option key={data.id} value={data.id}>
                             {data.Name}
@@ -394,7 +405,7 @@ export default function CustomJsonGraph() {
                       )
                     )
                   : data.nodes.map((data) =>
-                      data.hasOwnProperty("Workflow") ? (
+                      data.hasOwnProperty("Workflow") && data.Name !== "InsuranceGig"? (
                         <>
                           <option key={data.id} value={data.id}>
                             {data.Name}
@@ -447,7 +458,7 @@ export default function CustomJsonGraph() {
                 }}
               >
                 <option>Choose Buyer</option>
-                <option value="100">RESET</option>
+                {/* <option value="100">RESET</option> */}
                 {nodesGlobal && nodesGlobal.map((data) =>
                   data.hasOwnProperty("Buyer") ? (
                     <>
@@ -485,7 +496,7 @@ export default function CustomJsonGraph() {
                 }}
               >
                 <option>Choose Seller</option>
-                <option value="100">RESET</option>
+                {/* <option value="100">RESET</option> */}
                 {nodesGlobal && nodesGlobal.map((data) =>
                   data.hasOwnProperty("Seller") ? (
                     <>
@@ -518,9 +529,9 @@ export default function CustomJsonGraph() {
                 }}
               >
                 <option value={null}>Choose Status</option>
-                <option value="100" key="100">
+                {/* <option value="100" key="100">
                   RESET
-                </option>
+                </option> */}
                 <option value="Live" key="Live">
                   Live
                 </option>
@@ -554,6 +565,7 @@ export default function CustomJsonGraph() {
           <TopBar />
    <ForceGraph3D
   className="react-graph"
+  
   //nodeColor={node => node.id%2===0 ?"red" : "yellow"}
   // nodeColor={(node) => generateName(node)}
   ref={fgRef}
@@ -652,6 +664,8 @@ return n.hasOwnProperty("Buyer")
   //   }
   // }}
   onNodeClick={handleNodeClick}
+  
+ 
 />
 
 
