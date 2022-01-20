@@ -67,18 +67,22 @@ export default function CustomJsonGraph() {
     }
   }, [linksGlobal, nodesGlobal]);
 
-useEffect(()=>{
-  const myScene = fgRef.current.scene();
-myScene.add(onRenderFramePre);
+  useEffect(() => {
+    const myScene = fgRef.current.scene();
+    myScene.add(onRenderFramePre);
+  }, []);
 
-},[]);
-
-const onRenderFramePre = (ctx, globalScale) => {
-  const centreCoordinates = {"x":250, "y":250}
-  const backgroundImg = new Image();
-  backgroundImg.src = "https://www.pixelstalk.net/wp-content/uploads/2016/04/Mountain-wallpaper-HD.jpeg";
-  ctx.drawImage(backgroundImg, centreCoordinates.x - backgroundImg.width / 2, centreCoordinates.y - backgroundImg.height / 2);
-};
+  const onRenderFramePre = (ctx, globalScale) => {
+    const centreCoordinates = { x: 250, y: 250 };
+    const backgroundImg = new Image();
+    backgroundImg.src =
+      "https://www.pixelstalk.net/wp-content/uploads/2016/04/Mountain-wallpaper-HD.jpeg";
+    ctx.drawImage(
+      backgroundImg,
+      centreCoordinates.x - backgroundImg.width / 2,
+      centreCoordinates.y - backgroundImg.height / 2
+    );
+  };
   const filter_graph = (node) => {
     //data.nodes=nodesGlobal;
     for (let i = 0; i < nodesGlobal.length; i++) {
@@ -124,18 +128,17 @@ const onRenderFramePre = (ctx, globalScale) => {
     //data.nodes=nodesGlobal;
     data.nodes = [];
     for (let i = 0; i < nodesGlobal.length; i++) {
-      if(nodesGlobal[i].hasOwnProperty("Name") &&
-      nodesGlobal[i].Name !== "InsuranceGig"
-      ){
+      if (
+        nodesGlobal[i].hasOwnProperty("Name") &&
+        nodesGlobal[i].Name !== "InsuranceGig"
+      ) {
         if (node_status === nodesGlobal[i].Status) {
-         
-         data.nodes.push(nodesGlobal[i]);
+          data.nodes.push(nodesGlobal[i]);
           data.nodes.push(...nodesGlobal[i].neighbors);
         }
       }
-     
     }
-   // setAfterFilter(data.nodes);
+    // setAfterFilter(data.nodes);
     data.links = linksGlobal;
     let links_new = [];
     // FOR CREATING LINK____________________
@@ -145,13 +148,11 @@ const onRenderFramePre = (ctx, globalScale) => {
         //   console.log(data.links[j]);
         //   links_new.push(data.links[j]);
         // }
-        if (data.nodes[i].id  === data.links[j].source.id) {
+        if (data.nodes[i].id === data.links[j].source.id) {
           console.log(data.links[j]);
           links_new.push(data.links[j]);
         }
-
       }
-   
     }
 
     data.links = [];
@@ -165,7 +166,11 @@ const onRenderFramePre = (ctx, globalScale) => {
     const distRatio = 5 + distance / Math.hypot(data.nodes[0].x);
 
     fgRef.current.cameraPosition(
-      { x: data.nodes[0].x * distRatio, y: data.nodes[0].y * distRatio, z: data.nodes[0].z * distRatio }, // new position
+      {
+        x: data.nodes[0].x * distRatio,
+        y: data.nodes[0].y * distRatio,
+        z: data.nodes[0].z * distRatio,
+      }, // new position
       data.nodes[0], // lookAt ({ x, y, z })
       2000 // ms transition duration
     );
@@ -269,16 +274,16 @@ const onRenderFramePre = (ctx, globalScale) => {
   const handleNodeClick = (node) => {
     showSidebar(false);
     setsingleNodeData(node);
-    if(node.hasOwnProperty("Name")){
-      if(node.Name === "InsuranceGig"){
+    if (node.hasOwnProperty("Name")) {
+      if (node.Name === "InsuranceGig") {
         setWorkflow_type("InsuranceGig");
-      }else{
-        setWorkflow_type("workflow")
+      } else {
+        setWorkflow_type("workflow");
       }
-    }else{
+    } else {
       setWorkflow_type("buyer_seller");
     }
-  
+
     showSidebar(true);
 
     console.log("jsngrpah", node);
@@ -359,7 +364,7 @@ const onRenderFramePre = (ctx, globalScale) => {
                 value={selected}
                 // onChange={(e) => setSelected(e.target.value)}
                 onChange={(e) => {
-                  setSelected(e.target.value)
+                  setSelected(e.target.value);
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     // window.location.reload(false);
@@ -394,7 +399,8 @@ const onRenderFramePre = (ctx, globalScale) => {
                 {/* <option value="100">RESET</option> */}
                 {nodesGlobal !== null
                   ? nodesGlobal.map((data) =>
-                      data.hasOwnProperty("Workflow") && data.Name !== "InsuranceGig"? (
+                      data.hasOwnProperty("Workflow") &&
+                      data.Name !== "InsuranceGig" ? (
                         <>
                           <option key={data.id} value={data.id}>
                             {data.Name}
@@ -405,7 +411,8 @@ const onRenderFramePre = (ctx, globalScale) => {
                       )
                     )
                   : data.nodes.map((data) =>
-                      data.hasOwnProperty("Workflow") && data.Name !== "InsuranceGig"? (
+                      data.hasOwnProperty("Workflow") &&
+                      data.Name !== "InsuranceGig" ? (
                         <>
                           <option key={data.id} value={data.id}>
                             {data.Name}
@@ -418,18 +425,17 @@ const onRenderFramePre = (ctx, globalScale) => {
               </select>
               <br />
               <br />
-              
-            
+
               <select
                 value={selected3}
                 // onChange={(e) => setSelected3(e.target.value)}
                 style={leftbar.slct}
                 onChange={(e) => {
-                  setSelected3(e.target.value)
+                  setSelected3(e.target.value);
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     // window.location.reload(false);
-                  } else{
+                  } else {
                     if (nodesGlobal !== null) {
                       for (let i = 0; i < nodesGlobal.length; i++) {
                         if (
@@ -454,32 +460,32 @@ const onRenderFramePre = (ctx, globalScale) => {
                       }
                     }
                   }
-                    
                 }}
               >
                 <option>Choose Buyer</option>
                 {/* <option value="100">RESET</option> */}
-                {nodesGlobal && nodesGlobal.map((data) =>
-                  data.hasOwnProperty("Buyer") ? (
-                    <>
-                      <option key={data.id} value={data.id}>
-                        {data.Buyer}
-                      </option>
-                    </>
-                  ) : (
-                    <></>
-                  )
-                )}
+                {nodesGlobal &&
+                  nodesGlobal.map((data) =>
+                    data.hasOwnProperty("Buyer") ? (
+                      <>
+                        <option key={data.id} value={data.id}>
+                          {data.Buyer}
+                        </option>
+                      </>
+                    ) : (
+                      <></>
+                    )
+                  )}
               </select>
               <br />
               <br />
 
               <select
-               value={selected2}
-              //  onChange={(e) => setSelected2(e.target.value)}
+                value={selected2}
+                //  onChange={(e) => setSelected2(e.target.value)}
                 style={leftbar.slct}
                 onChange={(e) => {
-                  setSelected2(e.target.value)
+                  setSelected2(e.target.value);
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     //window.location.reload(false);
@@ -488,8 +494,6 @@ const onRenderFramePre = (ctx, globalScale) => {
                       if (
                         parseInt(e.target.value) === parseInt(data.nodes[i].id)
                       ) {
-                       
-
                         handleClick(data.nodes[i]);
                       }
                     }
@@ -497,17 +501,18 @@ const onRenderFramePre = (ctx, globalScale) => {
               >
                 <option>Choose Seller</option>
                 {/* <option value="100">RESET</option> */}
-                {nodesGlobal && nodesGlobal.map((data) =>
-                  data.hasOwnProperty("Seller") ? (
-                    <>
-                      <option key={data.id} value={data.id}>
-                        {data.Seller}
-                      </option>
-                    </>
-                  ) : (
-                    <></>
-                  )
-                )}
+                {nodesGlobal &&
+                  nodesGlobal.map((data) =>
+                    data.hasOwnProperty("Seller") ? (
+                      <>
+                        <option key={data.id} value={data.id}>
+                          {data.Seller}
+                        </option>
+                      </>
+                    ) : (
+                      <></>
+                    )
+                  )}
               </select>
               <br />
               <br />
@@ -516,7 +521,7 @@ const onRenderFramePre = (ctx, globalScale) => {
                 value={selected1}
                 // onChange={(e) => setSelected1(e.target.value)}
                 onChange={(e) => {
-                  setSelected1(e.target.value)
+                  setSelected1(e.target.value);
                   console.log(e.target.value);
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
@@ -563,113 +568,122 @@ const onRenderFramePre = (ctx, globalScale) => {
         </div>
         <div className="middlebar" style={indexs.middlebar}>
           <TopBar />
-   <ForceGraph3D
-  className="react-graph"
-  
-  //nodeColor={node => node.id%2===0 ?"red" : "yellow"}
-  // nodeColor={(node) => generateName(node)}
-  ref={fgRef}
-  graphData={data}
-  // linkColor={() => "White"}
-  nodeAutoColorBy={(d) => d.id % GROUPS}
-  //  linkAutoColorBy={() => "white"}
-  linkOpacity={0.6}
-  linkAutoColorBy={(d) => data.nodes[d.source].id % GROUPS}
-  linkWidth={0.6}
-  //distRatio="10:4"
-  // nodeAutoColorBy="group"
-  // nodeRelSize={NODE_R}
-  autoPauseRedraw={false}
-  // linkWidth={(link) => (highlightLinks.has(link) ? 4 : 2)}
-  linkDirectionalParticles={4}
-  linkDirectionalParticleWidth={(link) =>
-    highlightLinks.has(link) ? 1 : 0
-  }
-  nodeLabel={(node) => {
-    if (node.hasOwnProperty("Workflow")) {
-      if (node.Name === "InsuranceGig") {
-        return `_________INSURANCE GIG________ <br/>
+          <ForceGraph3D
+            className="react-graph"
+            //nodeColor={node => node.id%2===0 ?"red" : "yellow"}
+            // nodeColor={(node) => generateName(node)}
+            ref={fgRef}
+            graphData={data}
+            // linkColor={() => "White"}
+            nodeAutoColorBy={(d) => d.id % GROUPS}
+            //  linkAutoColorBy={() => "white"}
+            linkOpacity={0.6}
+            linkAutoColorBy={(d) => data.nodes[d.source].id % GROUPS}
+            linkWidth={0.6}
+            //distRatio="10:4"
+            // nodeAutoColorBy="group"
+            // nodeRelSize={NODE_R}
+            autoPauseRedraw={false}
+            // linkWidth={(link) => (highlightLinks.has(link) ? 4 : 2)}
+            linkDirectionalParticles={4}
+            linkDirectionalParticleWidth={(link) =>
+              highlightLinks.has(link) ? 1 : 0
+            }
+            nodeLabel={(node) => {
+              if (node.hasOwnProperty("Workflow")) {
+                if (node.Name === "InsuranceGig") {
+                  return `_________INSURANCE GIG________ <br/>
 
 ${node.neighbors.map((n) => {
-return `<br/>Worflow :
+  return `<br/>Worflow :
  ${n.Name}`;
 })} 
 `;
-      }
-      return `Workflow : ${node.Name} 
+                }
+
+
+                return `Workflow : ${node.Name} 
 <br/>
 Status : ${node.Status}
-${node.neighbors.map((n) => {
-return n.hasOwnProperty("Buyer")
- ? `<br/>Buyer :
- ${n.Buyer}`
- : `<br/>Seller :
-  ${n.Seller}`;
-})} 
-`;
-    } else if (node.hasOwnProperty("Buyer")) {
-      return `<br/>This is ${
-        node.Buyer
-      } , <br/> ${node.WorkflowImplementation.map((n) => {
-        return `Buyer of ${n.Name} and status is ${n.Status} <br/>`;
-      })}`;
-    } else if (node.hasOwnProperty("Seller")) {
-      return `<br/>This is ${
-        node.Seller
-      } , <br/> ${node.WorkflowImplementation.map((n) => {
-        return `Seller of ${n.Name} and status is ${n.Status} <br/>`;
-      })}`;
-    }
-  }}
-  //nodeLabel ={node  => `<span>${node.id}</span>`}
-  nodeCanvasObject={paintRing}
-  nodeCanvasObjectMode={(node) =>
-    highlightNodes.has(node) ? "before" : undefined
-  }
-  onNodeHover={handleNodeHover}
-  onLinkHover={handleLinkHover}
-  // linkOpacity={(node) => {
-  //   if (node.hasOwnProperty("Name") && node.Name === "InsuranceGig") {
-  //     return 0;
-  //   } else {
-  //     return 0;
-  //   }
-  // }}
-
-  nodeVal={(node) => {
-    if (node.id < 6) {
-      if (node.hasOwnProperty("Name")) {
-        if (node.Name === "InsuranceGig") {
-          return 30;
-        } else return 5;
-      }
-    } else {
-      return 0.5;
-    }
-  }}
-  linkDirectionalArrowLength={5.5}
-  // linkDirectionalArrowRelPos={1}
-  //  linkDirectionalParticles={5}
-  // linkDirectionalParticleWidth={2}
-  linkDirectionalParticleSpeed={(d) => 20 * 0.001}
-  linkDirectionalParticleColor="red"
-  // nodeThreeObject={(node) => {
-  //   if (node.hasOwnProperty("Name") && node.Name === "InsuranceGig") {
-  //     const imgTexture = new THREE.TextureLoader().load(logo);
-  //     const material = new THREE.SpriteMaterial({ map: imgTexture });
-  //     const sprite = new THREE.Sprite(material);
-  //     sprite.scale.set(30, 30);
-
-  //     return sprite;
-  //   }
-  // }}
-  onNodeClick={handleNodeClick}
+${
+  node.neighbors.map((n) => {
+  return n.hasOwnProperty("Seller")
+    ?  `<br/>Seller : ${n.Seller}` :``
   
- 
-/>
+})
+} 
+${
+  node.neighbors.map((n) => {
+  return n.hasOwnProperty("Buyer")
+    ? `<br/>Buyer :
+ ${n.Buyer}` : ``
+  
+})
+} 
 
 
-        
+
+
+`;
+              } else if (node.hasOwnProperty("Buyer")) {
+                return `<br/>This is ${
+                  node.Buyer
+                } , <br/> ${node.WorkflowImplementation.map((n) => {
+                  return `Buyer of ${n.Name} and status is ${n.Status} <br/>`;
+                })}`;
+              } else if (node.hasOwnProperty("Seller")) {
+                return `<br/>This is ${
+                  node.Seller
+                } , <br/> ${node.WorkflowImplementation.map((n) => {
+                  return `Seller of ${n.Name} and status is ${n.Status} <br/>`;
+                })}`;
+              }
+            }}
+            //nodeLabel ={node  => `<span>${node.id}</span>`}
+            nodeCanvasObject={paintRing}
+            nodeCanvasObjectMode={(node) =>
+              highlightNodes.has(node) ? "before" : undefined
+            }
+            onNodeHover={handleNodeHover}
+            onLinkHover={handleLinkHover}
+            // linkOpacity={(node) => {
+            //   if (node.hasOwnProperty("Name") && node.Name === "InsuranceGig") {
+            //     return 0;
+            //   } else {
+            //     return 0;
+            //   }
+            // }}
+
+            nodeVal={(node) => {
+              if (node.id < 6) {
+                if (node.hasOwnProperty("Name")) {
+                  if (node.Name === "InsuranceGig") {
+                    return 30;
+                  } else return 5;
+                }
+              } else {
+                return 0.5;
+              }
+            }}
+            linkDirectionalArrowLength={5.5}
+            // linkDirectionalArrowRelPos={1}
+            //  linkDirectionalParticles={5}
+            // linkDirectionalParticleWidth={2}
+            linkDirectionalParticleSpeed={(d) => 20 * 0.001}
+            linkDirectionalParticleColor="red"
+            // nodeThreeObject={(node) => {
+            //   if (node.hasOwnProperty("Name") && node.Name === "InsuranceGig") {
+            //     const imgTexture = new THREE.TextureLoader().load(logo);
+            //     const material = new THREE.SpriteMaterial({ map: imgTexture });
+            //     const sprite = new THREE.Sprite(material);
+            //     sprite.scale.set(30, 30);
+
+            //     return sprite;
+            //   }
+            // }}
+            onNodeClick={handleNodeClick}
+          />
+
           {!data.nodes.length && (
             <h2
               style={{
@@ -677,11 +691,9 @@ return n.hasOwnProperty("Buyer")
                 top: "50%",
                 left: "40%",
                 color: "white",
-                
               }}
             >
               No Result Found ! Please Reset
-            
             </h2>
           )}
         </div>
