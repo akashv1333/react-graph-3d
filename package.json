@@ -1,4 +1,4 @@
-{
+{ "homepage": "http://akashv1333.github.io/react-graph-3d",
   "name": "force-graph-transparent-background",
   "version": "1.0.0",
   "description": "",
@@ -23,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",

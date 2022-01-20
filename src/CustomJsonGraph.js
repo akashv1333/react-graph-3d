@@ -67,46 +67,20 @@ export default function CustomJsonGraph() {
     }
   }, [linksGlobal, nodesGlobal]);
 
+
   const filter_graph = (node) => {
     //data.nodes=nodesGlobal;
-    if (first_filter !== "Workflow") {
-      console.log("Filter from Filtered");
-      let flag = 0;
-      console.log("____________Second filter");
-      console.log(data);
-      for (let i = 0; i < data.nodes.length; i++) {
-        if (node.id === data.nodes[i].id) {
-          flag++;
-          console.log("Found_______");
-          data.nodes = [];
-          data.nodes.push(node);
-          data.nodes.push(...node.neighbors);
-          console.log(data.nodes);
-        } else {
-          console.log("Not Found_______");
-        }
-      }
-      if (flag === 0) {
+    for (let i = 0; i < nodesGlobal.length; i++) {
+      if (node.id === nodesGlobal[i].id) {
         data.nodes = [];
-      }
-    } else {
-      for (let i = 0; i < nodesGlobal.length; i++) {
-        if (node.id === nodesGlobal[i].id) {
-          data.nodes = [];
-          data.nodes.push(node);
-          data.nodes.push(...node.neighbors);
-        }
+        data.nodes.push(node);
+        data.nodes.push(...node.neighbors);
       }
     }
 
-    //   data.links = linksGlobal;
+    data.links = linksGlobal;
     let links_new = [];
     // FOR CREATING LINK____________________
-//data.links = linksGlobal;
-    if (first_filter !== "Workflow") {
-      //data.links = [];
-      // data.links.push(linksGlobal);
-    }
     for (let i = 0; i < data.links.length; i++) {
       if (node.id === data.links[i].target.id) {
         console.log(data.links[i]);
@@ -121,7 +95,7 @@ export default function CustomJsonGraph() {
     data.links = [];
     data.links.push(...links_new);
 
-    //  console.log("new data=>", data);
+    console.log("new data=>", data);
 
     // setGData(data || null);
     setHoverNode(node || null);
@@ -137,56 +111,36 @@ export default function CustomJsonGraph() {
 
   const filter_graph_by_status = (node_status) => {
     //data.nodes=nodesGlobal;
-    console.log("handleStatus");
-    console.log(first_filter);
-    if (first_filter === "Status") {
-      console.log("Filter from Global");
-      data.nodes = [];
-      for (let i = 0; i < nodesGlobal.length; i++) {
-        if (
-          nodesGlobal[i].hasOwnProperty("Name") &&
-          nodesGlobal[i].Name !== "InsuranceGig"
-        ) {
-          if (node_status === nodesGlobal[i].Status) {
-            data.nodes.push(nodesGlobal[i]);
-            data.nodes.push(...nodesGlobal[i].neighbors);
-          }
+    data.nodes = [];
+    for (let i = 0; i < nodesGlobal.length; i++) {
+      if(nodesGlobal[i].hasOwnProperty("Name") &&
+      nodesGlobal[i].Name !== "InsuranceGig"
+      ){
+        if (node_status === nodesGlobal[i].Status) {
+         
+         data.nodes.push(nodesGlobal[i]);
+          data.nodes.push(...nodesGlobal[i].neighbors);
         }
       }
-    } else {
-      let new_nodes = [];
-      let flag = 0;
-      for (let i = 0; i < data.nodes.length; i++) {
-        if (
-          data.nodes[i].hasOwnProperty("Name") &&
-          data.nodes[i].Name !== "InsuranceGig"
-        ) {
-          if (node_status === data.nodes[i].Status) {
-            flag++;
-            new_nodes.push(data.nodes[i]);
-            new_nodes.push(...data.nodes[i].neighbors);
-          }
-        }
-      }
-
-      if (flag === 0) {
-        data.nodes = [];
-      } else {
-        data.nodes = [];
-        data.nodes.push(...new_nodes);
-      }
+     
     }
-
+   // setAfterFilter(data.nodes);
     data.links = linksGlobal;
     let links_new = [];
     // FOR CREATING LINK____________________
     for (let i = 0; i < data.nodes.length; i++) {
       for (let j = 0; j < data.links.length; j++) {
-        if (data.nodes[i].id === data.links[j].source.id) {
+        // if (data.nodes[i].id === data.links[j].target.id) {
+        //   console.log(data.links[j]);
+        //   links_new.push(data.links[j]);
+        // }
+        if (data.nodes[i].id  === data.links[j].source.id) {
           console.log(data.links[j]);
           links_new.push(data.links[j]);
         }
+
       }
+   
     }
 
     data.links = [];
@@ -196,14 +150,14 @@ export default function CustomJsonGraph() {
 
     // setGData(data || null);
     setHoverNode(data.nodes || null);
-    // const distance = 40;
-    // const distRatio = 5 + distance / Math.hypot(data.nodes[0].x);
+    const distance = 40;
+    const distRatio = 5 + distance / Math.hypot(data.nodes[0].x);
 
-    // fgRef.current.cameraPosition(
-    //   { x: data.nodes[0].x * distRatio, y: data.nodes[0].y * distRatio, z: data.nodes[0].z * distRatio }, // new position
-    //   data.nodes[0], // lookAt ({ x, y, z })
-    //   2000 // ms transition duration
-    // );
+    fgRef.current.cameraPosition(
+      { x: data.nodes[0].x * distRatio, y: data.nodes[0].y * distRatio, z: data.nodes[0].z * distRatio }, // new position
+      data.nodes[0], // lookAt ({ x, y, z })
+      2000 // ms transition duration
+    );
   };
 
   const data = useMemo(() => {
@@ -392,8 +346,9 @@ export default function CustomJsonGraph() {
               <select
                 style={leftbar.slct}
                 value={selected}
-                onChange={(e) => setSelected(e.target.value)}
-                onClick={(e) => {
+                // onChange={(e) => setSelected(e.target.value)}
+                onChange={(e) => {
+                  setSelected(e.target.value)
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     // window.location.reload(false);
@@ -452,12 +407,14 @@ export default function CustomJsonGraph() {
               </select>
               <br />
               <br />
-
+              
+            
               <select
                 value={selected3}
-                onChange={(e) => setSelected3(e.target.value)}
+                // onChange={(e) => setSelected3(e.target.value)}
                 style={leftbar.slct}
-                onClick={(e) => {
+                onChange={(e) => {
+                  setSelected3(e.target.value)
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     // window.location.reload(false);
@@ -508,9 +465,10 @@ export default function CustomJsonGraph() {
 
               <select
                value={selected2}
-               onChange={(e) => setSelected2(e.target.value)}
+              //  onChange={(e) => setSelected2(e.target.value)}
                 style={leftbar.slct}
-                onClick={(e) => {
+                onChange={(e) => {
+                  setSelected2(e.target.value)
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
                     //window.location.reload(false);
@@ -545,8 +503,9 @@ export default function CustomJsonGraph() {
               <select
                 style={leftbar.slct}
                 value={selected1}
-                onChange={(e) => setSelected1(e.target.value)}
-                onClick={(e) => {
+                // onChange={(e) => setSelected1(e.target.value)}
+                onChange={(e) => {
+                  setSelected1(e.target.value)
                   console.log(e.target.value);
                   if (parseInt(e.target.value) === parseInt(100)) {
                     setCheck((check) => !check);
