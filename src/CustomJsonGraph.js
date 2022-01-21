@@ -7,11 +7,13 @@ import SpriteText from "three-spritetext";
 import generateName from "./random.js";
 import * as d3 from "d3";
 import logo from "./images/logo.png";
+import background_image from "./images/pic.jfif";
 import { indexs } from "./customStyle";
 import LeftBar from "./leftBar";
 import TopBar from "./topBar";
 import SideBar from "./sideBar";
 import { leftbar } from "./customStyle";
+import { rootDiv } from "./customStyle";
 import {
   CSS2DRenderer,
   CSS2DObject,
@@ -68,8 +70,23 @@ export default function CustomJsonGraph() {
   }, [linksGlobal, nodesGlobal]);
 
   useEffect(() => {
-    const myScene = fgRef.current.scene();
-    myScene.add(onRenderFramePre);
+  //  const myScene = fgRef.current.scene();
+
+  // var bgTexture = new THREE.TextureLoader().load(background_image);
+//bgTexture.minFilter = THREE.LinearFilter;
+//myScene.background = bgTexture;
+//myScene.background.bgHeight = "100%";
+//console.log(myScene.background);
+
+// const centreCoordinates = { x: 250, y: 250 };
+// const backgroundImg = new Image();
+// backgroundImg.src =
+//   "https://www.pixelstalk.net/wp-content/uploads/2016/04/Mountain-wallpaper-HD.jpeg";
+// ctx.drawImage(
+//   backgroundImg,
+//   centreCoordinates.x - backgroundImg.width / 2,
+//   centreCoordinates.y - backgroundImg.height / 2
+// );
   }, []);
 
   const onRenderFramePre = (ctx, globalScale) => {
@@ -354,10 +371,10 @@ export default function CustomJsonGraph() {
 
   return (
     <>
-      <div className="rowWrapper">
+      <div style={rootDiv.rowWrapper}>
         <div className="leftbar" style={indexs.leftbar}>
           <div style={leftbar.mainDiv}>
-            <h2 style={leftbar.heading}>Workflow</h2>
+            <h2 style={leftbar.heading}>Filters</h2>
             <div style={leftbar.slctDiv}>
               <select
                 style={leftbar.slct}
@@ -549,8 +566,7 @@ export default function CustomJsonGraph() {
               </select>
               <br />
               <br />
-              <br />
-              <br />
+              
               <button
                 style={leftbar.btn}
                 onClick={() => {
@@ -570,15 +586,20 @@ export default function CustomJsonGraph() {
           <TopBar />
           <ForceGraph3D
             className="react-graph"
-            //nodeColor={node => node.id%2===0 ?"red" : "yellow"}
+            nodeColor={node => node.hasOwnProperty("Name")&&node.Name!=="InsuranceGig" 
+            ? "red" 
+            : 
+            node.hasOwnProperty("Name")&&node.Name==="InsuranceGig" ? 
+            "Violet" 
+            :  node.hasOwnProperty("Buyer") ?"yellow":"skyblue" }
             // nodeColor={(node) => generateName(node)}
             ref={fgRef}
             graphData={data}
             // linkColor={() => "White"}
-            nodeAutoColorBy={(d) => d.id % GROUPS}
+           // nodeAutoColorBy={(d) => }
             //  linkAutoColorBy={() => "white"}
             linkOpacity={0.6}
-            linkAutoColorBy={(d) => data.nodes[d.source].id % GROUPS}
+             linkAutoColorBy={(d) => data.nodes[d.source].id % GROUPS}
             linkWidth={0.6}
             //distRatio="10:4"
             // nodeAutoColorBy="group"
@@ -640,7 +661,7 @@ ${
               }
             }}
             //nodeLabel ={node  => `<span>${node.id}</span>`}
-            nodeCanvasObject={paintRing}
+           // nodeCanvasObject={paintRing}
             nodeCanvasObjectMode={(node) =>
               highlightNodes.has(node) ? "before" : undefined
             }
