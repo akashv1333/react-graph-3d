@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/react-graph-3d/static/css/main.90b9a661.chunk.css",
-    "main.js": "/react-graph-3d/static/js/main.e94e634b.chunk.js",
-    "main.js.map": "/react-graph-3d/static/js/main.e94e634b.chunk.js.map",
+    "main.js": "/react-graph-3d/static/js/main.a430e0fc.chunk.js",
+    "main.js.map": "/react-graph-3d/static/js/main.a430e0fc.chunk.js.map",
     "runtime-main.js": "/react-graph-3d/static/js/runtime-main.979b0e86.js",
     "runtime-main.js.map": "/react-graph-3d/static/js/runtime-main.979b0e86.js.map",
     "static/js/2.c81b6770.chunk.js": "/react-graph-3d/static/js/2.c81b6770.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.979b0e86.js",
     "static/js/2.c81b6770.chunk.js",
     "static/css/main.90b9a661.chunk.css",
-    "static/js/main.e94e634b.chunk.js"
+    "static/js/main.a430e0fc.chunk.js"
   ]
 }
