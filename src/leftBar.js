@@ -1,22 +1,11 @@
 import "./styles.css";
-import w_new from "./WorkflowNew_1.json";
-import ForceGraph3D from "react-force-graph-3d";
-import {leftbar} from "./customStyle";
-import { useEffect, useState, useRef, useCallback, useMemo } from "react";
-export default function LeftBar(
-  ) {
- 
-    
-   
-   
-    
-   
+import { leftbar } from "./customStyle";
 
-    return(
-        <div style={leftbar.mainDiv}>
-            <h2 style={leftbar.heading}>Workflow</h2>
-                <div  style={leftbar.slctDiv}>
-
+export default function LeftBar() {
+  return (
+    <div style={leftbar.mainDiv}>
+      <h2 style={leftbar.heading}>Workflow</h2>
+      <div style={leftbar.slctDiv}>
         <select
           style={leftbar.slct}
           onClick={(e) => {
@@ -30,7 +19,7 @@ export default function LeftBar(
                     parseInt(e.target.value) === parseInt(nodesGlobal[i].id)
                   ) {
                     console.log("data to be set==>", data);
-                   
+
                     handleClick(nodesGlobal[i]);
                   }
                 }
@@ -38,7 +27,7 @@ export default function LeftBar(
                 for (let i = 0; i < data.nodes.length; i++) {
                   if (parseInt(e.target.value) === parseInt(data.nodes[i].id)) {
                     console.log("data to be set==>", data);
-                   
+
                     handleClick(data.nodes[i]);
                   }
                 }
@@ -71,12 +60,13 @@ export default function LeftBar(
                   <></>
                 )
               )}
-        </select><br /><br />
+        </select>
+        <br />
+        <br />
 
         <select
           style={leftbar.slct}
           onClick={(e) => {
-
             if (parseInt(e.target.value) === parseInt(100)) {
               setCheck((check) => !check);
               // window.location.reload(false);
@@ -84,7 +74,7 @@ export default function LeftBar(
               for (let i = 0; i < data.nodes.length; i++) {
                 if (parseInt(e.target.value) === parseInt(data.nodes[i].id)) {
                   console.log("data to be set==>", data);
-                
+
                   handleClick(data.nodes[i]);
                 }
               }
@@ -103,7 +93,9 @@ export default function LeftBar(
               <></>
             )
           )}
-        </select><br /><br />
+        </select>
+        <br />
+        <br />
 
         <select
           style={leftbar.slct}
@@ -134,7 +126,9 @@ export default function LeftBar(
               <></>
             )
           )}
-        </select><br /><br />
+        </select>
+        <br />
+        <br />
         <select
           style={leftbar.slct}
           onClick={(e) => {
@@ -160,9 +154,13 @@ export default function LeftBar(
           <option value="Testing" key="Testing">
             Testing
           </option>
-        </select><br /><br /><br /><br />
+        </select>
+        <br />
+        <br />
+        <br />
+        <br />
         <button style={leftbar.btn}>Filter....</button>
       </div>
     </div>
-    )
+  );
 }

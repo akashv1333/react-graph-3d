@@ -1,6 +1,6 @@
 import "./styles.css";
 import {topbar} from "./customStyle";
-export default function topBar() {
+export default function TopBar() {
     return(
        <div style={topbar.mainDiv}>
            <div style={topbar.workflowSelected}>Workflow View</div>

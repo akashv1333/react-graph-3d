@@ -3,7 +3,7 @@ import "./styles.css";
 import { styles } from "./customStyle";
 //import "./sideBar.scss";
 
-class sideBar extends React.Component {
+class SideBar extends React.Component {
   constructor(props) {
     super(props);
     console.log("node data", props);
@@ -149,4 +149,4 @@ class sideBar extends React.Component {
   }
 }
 
-export default sideBar;
+export default SideBar;
