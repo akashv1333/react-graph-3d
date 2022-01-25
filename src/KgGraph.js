@@ -1,5 +1,5 @@
 import "./styles.css";
-import kg_data from "./kgGraphData"; //json file import
+import kg_data from "./Data/kgGraphData"; //json file import
 import ForceGraph3D from "react-force-graph-3d";
 import { indexs } from "./customStyle";
 import TopBar from "./TopBar";
