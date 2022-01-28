@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/react-graph-3d/static/css/main.751c9c2c.chunk.css",
-    "main.js": "/react-graph-3d/static/js/main.845ac6a3.chunk.js",
+    "main.css": "/react-graph-3d/static/css/main.85bb1795.chunk.css",
+    "main.js": "/react-graph-3d/static/js/main.c5dc63bf.chunk.js",
     "runtime-main.js": "/react-graph-3d/static/js/runtime-main.979b0e86.js",
-    "static/js/2.9ab861aa.chunk.js": "/react-graph-3d/static/js/2.9ab861aa.chunk.js",
+    "static/js/2.f18a53ca.chunk.js": "/react-graph-3d/static/js/2.f18a53ca.chunk.js",
     "index.html": "/react-graph-3d/index.html",
-    "static/js/2.9ab861aa.chunk.js.LICENSE.txt": "/react-graph-3d/static/js/2.9ab861aa.chunk.js.LICENSE.txt"
+    "static/js/2.f18a53ca.chunk.js.LICENSE.txt": "/react-graph-3d/static/js/2.f18a53ca.chunk.js.LICENSE.txt",
+    "static/media/bezier.cjs": "/react-graph-3d/static/media/bezier.93c9833c.cjs",
+    "static/media/logo.f35d21ad.png": "/react-graph-3d/static/media/logo.f35d21ad.png",
+    "static/media/pic.95e7e533.jfif": "/react-graph-3d/static/media/pic.95e7e533.jfif"
   },
   "entrypoints": [
     "static/js/runtime-main.979b0e86.js",
-    "static/js/2.9ab861aa.chunk.js",
-    "static/css/main.751c9c2c.chunk.css",
-    "static/js/main.845ac6a3.chunk.js"
+    "static/js/2.f18a53ca.chunk.js",
+    "static/css/main.85bb1795.chunk.css",
+    "static/js/main.c5dc63bf.chunk.js"
   ]
 }
